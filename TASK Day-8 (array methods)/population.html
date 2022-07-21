@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Rest Countries data</title>
+  </head>
+  <body> 
+    <script>
+    let data;
+ let p = new Promise((resolve,reject)=>{
+    let request = new XMLHttpRequest()
+    request.open("GET","https://restcountries.com/v2/all",true)
+    request.send()
+    request.onload = function(){
+        data = JSON.parse(this.response)
+        resolve(data)
+    }
+})
+ p.then((data)=>{
+var result =data.filter(function (entry) {
+    return entry.population<200000;
+});
+const arr = result.map(i => `${i.name}`);
+console.table(arr)
+})
+
+    </script> 
+</body>
+</html>
